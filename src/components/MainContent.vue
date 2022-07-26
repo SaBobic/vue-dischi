@@ -1,7 +1,8 @@
 <template>
     <main class="d-flex align-items-center">
         <div class="container">
-            <div class="row g-3">
+            <StandardLoader v-if="isLoading" />
+            <div v-else class="row g-3">
                 <div v-for="album in albums" class="col-auto" :key="album.title">
                     <AlbumSingle :poster="album.poster" :title="album.title" :author="album.author"
                         :year="album.year" />
@@ -13,12 +14,14 @@
 
 <script>
 import AlbumSingle from "./AlbumSingle.vue";
+import StandardLoader from "./StandardLoader.vue";
 
 export default {
     name: "MainContent",
-    components: { AlbumSingle },
+    components: { AlbumSingle, StandardLoader, },
     props: {
         albums: Array,
+        isLoading: Boolean,
     }
 }
 </script>

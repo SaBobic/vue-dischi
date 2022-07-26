@@ -1,7 +1,7 @@
 <template id="app">
   <div>
     <MainHeader />
-    <MainContent :albums="albums" />
+    <MainContent :albums="albums" :is-loading="isLoading" />
   </div>
 </template>
 
@@ -19,12 +19,17 @@ export default {
   data() {
     return {
       albums: null,
+      isLoading: false,
     }
   },
   methods: {
     getAlbumsArray() {
+      this.isLoading = true;
       axios.get('https://flynn.boolean.careers/exercises/api/array/music')
-        .then(res => { return this.albums = res.data.response; })
+        .then(res => {
+          this.isLoading = false;
+          return this.albums = res.data.response;
+        })
     }
   },
   created() {
