@@ -1,7 +1,7 @@
 <template>
     <header>
         <nav class="d-flex align-items-center">
-            <img src="../assets/img/spotify-logo-png-7053.png" alt="Spotify Logo">
+            <img src="../assets/img/spotify-logo-png-7053.png" alt="Spotify Logo" type="button">
         </nav>
     </header>
 </template>
