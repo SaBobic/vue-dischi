@@ -2,8 +2,9 @@
     <main class="d-flex align-items-center">
         <div class="container">
             <div class="row g-3">
-                <div class="col-auto">
-                    <AlbumSingle />
+                <div v-for="album in albums" class="col-auto" :key="album.title">
+                    <AlbumSingle :poster="album.poster" :title="album.title" :author="album.author"
+                        :year="album.year" />
                 </div>
             </div>
         </div>
@@ -15,7 +16,10 @@ import AlbumSingle from "./AlbumSingle.vue";
 
 export default {
     name: "MainContent",
-    components: { AlbumSingle }
+    components: { AlbumSingle },
+    props: {
+        albums: Array,
+    }
 }
 </script>
 

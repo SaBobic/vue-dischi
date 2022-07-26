@@ -1,16 +1,21 @@
 <template>
     <div class="album p-3 text-center">
-        <img src="https://i.discogs.com/psDUUalbwHXuzNS7QgK93aG6ImE4JzALnOkCPtB1HVw/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNDY5/NTMtMTQ0ODkyNzA4/Ni02NTkwLmpwZWc.jpeg"
-            alt="" class="img-fluid mb-3">
-        <h4>NEW JERSEY</h4>
-        <div class="band">Bon Jovi</div>
-        <div class="year">1988</div>
+        <img :src="poster" :alt="title" class="img-fluid mb-3">
+        <h4>{{ title }}</h4>
+        <div class="author">{{ author }}</div>
+        <div class="year">{{ year }}</div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'AlbumSingle',
+    props: {
+        poster: String,
+        title: String,
+        author: String,
+        year: String,
+    }
 }
 </script>
 
@@ -18,14 +23,15 @@ export default {
 @import '../assets/scss/vars';
 
 .album {
+    height: 100%;
     background-color: $secondary_color;
 
-    .band,
+    .author,
     .year {
         color: $grey;
     }
 
-    .band {
+    .author {
         font-size: 20px;
     }
 }
