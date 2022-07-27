@@ -1,7 +1,7 @@
 <template id="app">
   <div>
-    <MainHeader :albums="albums" />
-    <MainContent :albums="albums" :is-loading="isLoading" />
+    <MainHeader @select="getGenreValue" :genres="albumsGenres" />
+    <MainContent :albums="filteredAlbums" :is-loading="isLoading" />
   </div>
 </template>
 
@@ -18,9 +18,35 @@ export default {
   },
   data() {
     return {
-      albums: null,
+      albums: [],
       isLoading: false,
+      selectedGenre: '',
     }
+  },
+  computed: {
+    albumsGenres() {
+      const newArray = [];
+      const genres = [];
+      this.albums.forEach(album => {
+        if (!genres.includes(album.genre)) {
+          genres.push(album.genre);
+        }
+      });
+      genres.forEach(genre => {
+        const obj = {
+          value: genre.toLowerCase(),
+          text: genre,
+        };
+        newArray.push(obj);
+      });
+      return newArray;
+    },
+    filteredAlbums() {
+      return this.albums.filter(album => {
+        return album.genre.toLowerCase().includes(this.selectedGenre);
+      }
+      )
+    },
   },
   methods: {
     getAlbumsArray() {
@@ -30,7 +56,10 @@ export default {
           this.isLoading = false;
           return this.albums = res.data.response;
         })
-    }
+    },
+    getGenreValue(value) {
+      return this.selectedGenre = value;
+    },
   },
   created() {
     this.getAlbumsArray();

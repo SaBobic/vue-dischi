@@ -4,7 +4,7 @@
             <img src="../assets/img/spotify-logo-png-7053.png" alt="Spotify Logo" type="button">
         </nav>
         <div>
-            <StandardSelect placeholder="Filtrare per genere" :options="albumsGenres" />
+            <StandardSelect @select="sendSelect" placeholder="Filtrare per genere" :options="genres" />
         </div>
     </header>
 </template>
@@ -15,26 +15,12 @@ import StandardSelect from './StandardSelect.vue';
 export default {
     name: "MainHeader",
     props: {
-        albums: Array,
+        genres: Array,
     },
     components: { StandardSelect },
-    computed: {
-        albumsGenres() {
-            const newArray = [];
-            const genres = [];
-            this.albums.forEach(album => {
-                if (!genres.includes(album.genre)) {
-                    genres.push(album.genre);
-                }
-            });
-            genres.forEach(genre => {
-                const obj = {
-                    value: genre.toLowerCase(),
-                    text: genre,
-                };
-                newArray.push(obj);
-            });
-            return newArray;
+    methods: {
+        sendSelect(value) {
+            return this.$emit('select', value);
         }
     }
 }
@@ -51,7 +37,5 @@ header {
     img {
         height: 50px;
     }
-
-
 }
 </style>
