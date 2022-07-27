@@ -1,7 +1,7 @@
 <template id="app">
   <div>
     <MainHeader @genre="getGenreValue" @author="getAuthorValue" :genres="albumsGenres" :authors="albumsAuthors" />
-    <MainContent :albums="filteredAlbums" :is-loading="isLoading" />
+    <MainContent :albums="filteredAlbumsByAuthor" :is-loading="isLoading" />
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
     albumsAuthors() {
       const newArray = [];
       const authors = [];
-      this.filteredAlbums.forEach(album => {
+      this.filteredAlbumsByGenre.forEach(album => {
         if (!authors.includes(album.author)) {
           authors.push(album.author);
         }
@@ -59,8 +59,11 @@ export default {
       });
       return newArray;
     },
-    filteredAlbums() {
-      return this.albums.filter(album => (album.genre.toLowerCase().includes(this.selectedGenre) && album.author.toLowerCase().includes(this.selectedAuthor)));
+    filteredAlbumsByGenre() {
+      return this.albums.filter(album => album.genre.toLowerCase().includes(this.selectedGenre));
+    },
+    filteredAlbumsByAuthor() {
+      return this.filteredAlbumsByGenre.filter(album => album.author.toLowerCase().includes(this.selectedAuthor));
     },
   },
   methods: {
