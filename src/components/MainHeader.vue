@@ -4,7 +4,8 @@
             <img src="../assets/img/spotify-logo-png-7053.png" alt="Spotify Logo" type="button">
         </nav>
         <div>
-            <StandardSelect @select="sendSelect" placeholder="Filtrare per genere" :options="genres" />
+            <StandardSelect @select="sendAuthor" placeholder="Filtrare per autore" :options="authors" />
+            <StandardSelect @select="sendGenre" placeholder="Filtrare per genere" :options="genres" />
         </div>
     </header>
 </template>
@@ -16,11 +17,15 @@ export default {
     name: "MainHeader",
     props: {
         genres: Array,
+        authors: Array,
     },
     components: { StandardSelect },
     methods: {
-        sendSelect(value) {
-            return this.$emit('select', value);
+        sendAuthor(value) {
+            return this.$emit('author', value);
+        },
+        sendGenre(value) {
+            return this.$emit('genre', value);
         }
     }
 }

@@ -1,6 +1,6 @@
 <template id="app">
   <div>
-    <MainHeader @select="getGenreValue" :genres="albumsGenres" />
+    <MainHeader @genre="getGenreValue" @author="getAuthorValue" :genres="albumsGenres" :authors="albumsAuthors" />
     <MainContent :albums="filteredAlbums" :is-loading="isLoading" />
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
       albums: [],
       isLoading: false,
       selectedGenre: '',
+      selectedAuthor: '',
     }
   },
   computed: {
@@ -41,11 +42,25 @@ export default {
       });
       return newArray;
     },
+    albumsAuthors() {
+      const newArray = [];
+      const authors = [];
+      this.filteredAlbums.forEach(album => {
+        if (!authors.includes(album.author)) {
+          authors.push(album.author);
+        }
+      });
+      authors.forEach(author => {
+        const obj = {
+          value: author.toLowerCase(),
+          text: author,
+        };
+        newArray.push(obj);
+      });
+      return newArray;
+    },
     filteredAlbums() {
-      return this.albums.filter(album => {
-        return album.genre.toLowerCase().includes(this.selectedGenre);
-      }
-      )
+      return this.albums.filter(album => (album.genre.toLowerCase().includes(this.selectedGenre) && album.author.toLowerCase().includes(this.selectedAuthor)));
     },
   },
   methods: {
@@ -59,6 +74,9 @@ export default {
     },
     getGenreValue(value) {
       return this.selectedGenre = value;
+    },
+    getAuthorValue(value) {
+      return this.selectedAuthor = value;
     },
   },
   created() {
