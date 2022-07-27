@@ -1,6 +1,6 @@
 <template id="app">
   <div>
-    <MainHeader />
+    <MainHeader :albums="albums" />
     <MainContent :albums="albums" :is-loading="isLoading" />
   </div>
 </template>
@@ -20,25 +20,6 @@ export default {
     return {
       albums: null,
       isLoading: false,
-    }
-  },
-  computed: {
-    albumsGenres() {
-      const newArray = [];
-      const genres = [];
-      this.albums.forEach(album => {
-        if (!genres.includes(album.genre)) {
-          genres.push(album.genre);
-        }
-      });
-      genres.forEach(genre => {
-        const obj = {
-          value: genre.toLowerCase(),
-          text: genre,
-        };
-        newArray.push(obj);
-      });
-      return newArray;
     }
   },
   methods: {
