@@ -22,6 +22,25 @@ export default {
       isLoading: false,
     }
   },
+  computed: {
+    albumsGenres() {
+      const newArray = [];
+      const genres = [];
+      this.albums.forEach(album => {
+        if (!genres.includes(album.genre)) {
+          genres.push(album.genre);
+        }
+      });
+      genres.forEach(genre => {
+        const obj = {
+          value: genre.toLowerCase(),
+          text: genre,
+        };
+        newArray.push(obj);
+      });
+      return newArray;
+    }
+  },
   methods: {
     getAlbumsArray() {
       this.isLoading = true;
