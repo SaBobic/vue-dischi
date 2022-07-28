@@ -18,6 +18,7 @@ export default {
     props: {
         genres: Array,
         authors: Array,
+        selectedAuthor: String,
     },
     components: { StandardSelect },
     methods: {

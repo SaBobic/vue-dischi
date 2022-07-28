@@ -1,6 +1,7 @@
 <template id="app">
   <div>
-    <MainHeader @genre="getGenreValue" @author="getAuthorValue" :genres="albumsGenres" :authors="albumsAuthors" />
+    <MainHeader @genre="getGenreValue" @author="getAuthorValue" :genres="albumsGenres" :authors="albumsAuthors"
+      :selected-author="selectedAuthor" />
     <MainContent :albums="filteredAlbumsByAuthor" :is-loading="isLoading" />
   </div>
 </template>
@@ -76,6 +77,7 @@ export default {
         })
     },
     getGenreValue(value) {
+      this.selectedAuthor = '';
       return this.selectedGenre = value;
     },
     getAuthorValue(value) {
